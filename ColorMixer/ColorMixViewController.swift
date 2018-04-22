@@ -9,7 +9,7 @@ import UIKit
 
 let kColorBottomRotationKey = "kColorBottomRotationKey"
 let kColorTopRotationKey = "kColorTopRotationKey"
-let kColorRotationDuration: CFTimeInterval = 10.0
+let kColorRotationDuration: CFTimeInterval = 0.35
 
 struct ColorInfo {
     var color: UIColor
@@ -302,6 +302,13 @@ class ColorMixViewController: UIViewController {
     @IBOutlet var mixedColorButtonView: TriangleView! {
         didSet {
             mixedColorButtonView.direction = .up
+        }
+    }
+
+    @IBOutlet var leftBarTriangleView: TriangleView! {
+        didSet {
+            leftBarTriangleView.color = .black
+            leftBarTriangleView.direction = .right
         }
     }
 

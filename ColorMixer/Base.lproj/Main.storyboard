@@ -288,6 +288,55 @@
                                     <outletCollection property="gestureRecognizers" destination="Oxd-Bv-ouO" appends="YES" id="0ta-gL-0b1"/>
                                 </connections>
                             </view>
+                            <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SRI-he-0jv">
+                                <rect key="frame" x="-70" y="10" width="100" height="667"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uyX-fP-1nO">
+                                        <rect key="frame" x="70" y="303" width="30" height="60"/>
+                                        <subviews>
+                                            <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="15g-pg-IRc" customClass="TriangleView" customModule="ColorMixer" customModuleProvider="target">
+                                                <rect key="frame" x="4" y="7.5" width="22.5" height="45"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                            </view>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstItem="15g-pg-IRc" firstAttribute="centerX" secondItem="uyX-fP-1nO" secondAttribute="centerX" id="7MD-RX-Qmw"/>
+                                            <constraint firstItem="15g-pg-IRc" firstAttribute="height" secondItem="uyX-fP-1nO" secondAttribute="height" multiplier="0.75" id="8mC-0a-Ikd"/>
+                                            <constraint firstAttribute="width" constant="30" id="VKb-3m-qtm"/>
+                                            <constraint firstAttribute="height" constant="60" id="XZS-5d-cmo"/>
+                                            <constraint firstItem="15g-pg-IRc" firstAttribute="centerY" secondItem="uyX-fP-1nO" secondAttribute="centerY" id="Ytm-6Y-ygF"/>
+                                            <constraint firstItem="15g-pg-IRc" firstAttribute="width" secondItem="uyX-fP-1nO" secondAttribute="width" multiplier="0.75" id="lwg-bK-ka8"/>
+                                        </constraints>
+                                    </view>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iiB-go-iyh">
+                                        <rect key="frame" x="0.0" y="0.0" width="70" height="667"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="iiB-go-iyh" firstAttribute="height" secondItem="SRI-he-0jv" secondAttribute="height" id="3mo-eU-O6E"/>
+                                    <constraint firstAttribute="trailing" secondItem="uyX-fP-1nO" secondAttribute="trailing" id="842-WQ-mgv"/>
+                                    <constraint firstItem="iiB-go-iyh" firstAttribute="centerY" secondItem="SRI-he-0jv" secondAttribute="centerY" id="EVP-84-ZkJ"/>
+                                    <constraint firstItem="uyX-fP-1nO" firstAttribute="centerY" secondItem="SRI-he-0jv" secondAttribute="centerY" id="Tx3-nb-372"/>
+                                    <constraint firstAttribute="trailing" secondItem="iiB-go-iyh" secondAttribute="trailing" constant="30" id="UW5-El-l8n"/>
+                                    <constraint firstItem="iiB-go-iyh" firstAttribute="leading" secondItem="SRI-he-0jv" secondAttribute="leading" id="hku-Ez-QZi"/>
+                                    <constraint firstAttribute="width" constant="100" id="rpv-Q8-VPu"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.masksToBounds" value="NO"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowOpacity">
+                                        <integer key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.shadowRadius">
+                                        <integer key="value" value="2"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="size" keyPath="layer.shadowOffset">
+                                        <size key="value" width="0.0" height="0.0"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -311,7 +360,9 @@
                             <constraint firstItem="yJf-8M-pch" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="PVm-he-vWD"/>
                             <constraint firstItem="V6M-wm-72u" firstAttribute="bottom" secondItem="FKj-Fk-sqL" secondAttribute="top" id="RDv-IQ-52R"/>
                             <constraint firstItem="Qe9-EM-noj" firstAttribute="top" secondItem="24p-f6-2cT" secondAttribute="bottom" constant="20" id="SML-TH-PQp"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="leading" secondItem="SRI-he-0jv" secondAttribute="trailing" constant="-30" id="SdG-2Q-0Pq"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="wON-v5-uqq" secondAttribute="trailing" id="Uro-BG-Ye3"/>
+                            <constraint firstItem="SRI-he-0jv" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" id="VE1-k5-g1n"/>
                             <constraint firstItem="Qe9-EM-noj" firstAttribute="bottom" secondItem="PXL-Ac-bYs" secondAttribute="centerY" id="Vg0-rn-eH3"/>
                             <constraint firstItem="He5-0h-pwh" firstAttribute="top" secondItem="Qe9-EM-noj" secondAttribute="top" id="W0z-LW-yIH"/>
                             <constraint firstItem="jOz-JS-QV8" firstAttribute="centerY" secondItem="24p-f6-2cT" secondAttribute="centerY" id="WQH-or-cvp"/>
@@ -326,6 +377,7 @@
                             <constraint firstItem="PXL-Ac-bYs" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="kDw-Df-I9K"/>
                             <constraint firstItem="oW8-i2-EWF" firstAttribute="leading" secondItem="24p-f6-2cT" secondAttribute="trailing" constant="10" id="kqF-WC-PLQ"/>
                             <constraint firstItem="lLd-Ht-LjB" firstAttribute="centerX" secondItem="He5-0h-pwh" secondAttribute="centerX" id="lwU-oh-SzL"/>
+                            <constraint firstItem="SRI-he-0jv" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="nQd-nr-5hs"/>
                             <constraint firstItem="blC-bR-THa" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="pBC-3H-YEa"/>
                             <constraint firstItem="lLd-Ht-LjB" firstAttribute="height" secondItem="He5-0h-pwh" secondAttribute="height" id="prI-gy-36z"/>
                             <constraint firstItem="Qe9-EM-noj" firstAttribute="centerX" secondItem="PXL-Ac-bYs" secondAttribute="centerX" id="pwT-Cj-kuJ"/>
@@ -340,6 +392,7 @@
                     <connections>
                         <outlet property="featureSwitch" destination="FKj-Fk-sqL" id="bJo-3m-UzK"/>
                         <outlet property="gradientLayerView" destination="yJf-8M-pch" id="dxW-oD-I1d"/>
+                        <outlet property="leftBarTriangleView" destination="15g-pg-IRc" id="coa-N8-a1f"/>
                         <outlet property="mainColorHexTextField" destination="24p-f6-2cT" id="ooV-tN-mUG"/>
                         <outlet property="mainColorView" destination="Qe9-EM-noj" id="qT7-Rm-86D"/>
                         <outlet property="mixedColorButtonView" destination="0z8-ZB-yLw" id="pLE-GC-xdc"/>
