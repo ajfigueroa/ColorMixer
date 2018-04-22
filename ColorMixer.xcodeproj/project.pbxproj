@@ -14,6 +14,7 @@
 		5128F29420142E62004C0964 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5128F29220142E62004C0964 /* LaunchScreen.storyboard */; };
 		5128F29C20153160004C0964 /* ColorMixerUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5128F29B20153160004C0964 /* ColorMixerUtilities.swift */; };
 		51732F7D208BA23C00FD0F3E /* ColorSectionBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51732F7C208BA23C00FD0F3E /* ColorSectionBar.swift */; };
+		5176C4522083F79100ACC735 /* ColorLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5176C4512083F79100ACC735 /* ColorLibrary.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		5128F29520142E62004C0964 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5128F29B20153160004C0964 /* ColorMixerUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorMixerUtilities.swift; sourceTree = "<group>"; };
 		51732F7C208BA23C00FD0F3E /* ColorSectionBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSectionBar.swift; sourceTree = "<group>"; };
+		5176C4512083F79100ACC735 /* ColorLibrary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorLibrary.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +63,7 @@
 				5128F28920142E62004C0964 /* AppDelegate.swift */,
 				5128F28B20142E62004C0964 /* ColorMixViewController.swift */,
 				5128F29B20153160004C0964 /* ColorMixerUtilities.swift */,
+				5176C4512083F79100ACC735 /* ColorLibrary.swift */,
 				5128F28D20142E62004C0964 /* Main.storyboard */,
 				5128F29020142E62004C0964 /* Assets.xcassets */,
 				5128F29220142E62004C0964 /* LaunchScreen.storyboard */,
@@ -143,6 +146,7 @@
 			files = (
 				5128F28C20142E62004C0964 /* ColorMixViewController.swift in Sources */,
 				51732F7D208BA23C00FD0F3E /* ColorSectionBar.swift in Sources */,
+				5176C4522083F79100ACC735 /* ColorLibrary.swift in Sources */,
 				5128F28A20142E62004C0964 /* AppDelegate.swift in Sources */,
 				5128F29C20153160004C0964 /* ColorMixerUtilities.swift in Sources */,
 			);
