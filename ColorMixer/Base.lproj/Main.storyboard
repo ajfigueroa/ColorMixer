@@ -392,7 +392,9 @@
                     <connections>
                         <outlet property="featureSwitch" destination="FKj-Fk-sqL" id="bJo-3m-UzK"/>
                         <outlet property="gradientLayerView" destination="yJf-8M-pch" id="dxW-oD-I1d"/>
-                        <outlet property="leftBarTriangleView" destination="15g-pg-IRc" id="coa-N8-a1f"/>
+                        <outlet property="leftSideBarButton" destination="uyX-fP-1nO" id="HCo-xk-dvD"/>
+                        <outlet property="leftSideBarTriangleView" destination="15g-pg-IRc" id="52g-oR-sbT"/>
+                        <outlet property="leftSideBarView" destination="iiB-go-iyh" id="HYY-Dg-ntp"/>
                         <outlet property="mainColorHexTextField" destination="24p-f6-2cT" id="ooV-tN-mUG"/>
                         <outlet property="mainColorView" destination="Qe9-EM-noj" id="qT7-Rm-86D"/>
                         <outlet property="mixedColorButtonView" destination="0z8-ZB-yLw" id="pLE-GC-xdc"/>

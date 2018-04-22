@@ -160,10 +160,16 @@ class ColorMixViewController: UIViewController {
         }
     }
 
-    @IBOutlet var leftBarTriangleView: TriangleView! {
+    @IBOutlet var leftSideBarButton: UIView!
+    // TODO: Filters (all, red, orange, ...),
+    // Sort (color, hue, brightness, ...)
+    // Right Side Bar View: favorited colors
+    @IBOutlet var leftSideBarView: UIView!
+
+    @IBOutlet var leftSideBarTriangleView: TriangleView! {
         didSet {
-            leftBarTriangleView.color = .black
-            leftBarTriangleView.direction = .right
+            leftSideBarTriangleView.color = .black
+            leftSideBarTriangleView.direction = .right
         }
     }
 
@@ -295,6 +301,9 @@ class ColorMixViewController: UIViewController {
         mixedColorNameLabel.textColor = mixedColorLabel.textColor
         mixedColorMatchLabel.textColor = mixedColorLabel.textColor
         mixedColorButtonView.color = mixedColorLabel.textColor
+
+        leftSideBarView.backgroundColor = UIColor.mixColor(color1: .white, with: mixedColor, atRatio: 0.25)
+        leftSideBarButton.backgroundColor = leftSideBarView.backgroundColor
 
         if featureSwitch.isOn && animate {
 
