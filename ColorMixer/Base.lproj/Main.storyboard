@@ -1,22 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
-    <customFonts key="customFonts">
-        <array key="CourierNew.ttf">
-            <string>CourierNewPSMT</string>
-        </array>
-    </customFonts>
     <scenes>
         <!--Color Mix View Controller-->
         <scene sceneID="tne-QT-ifu">
@@ -27,7 +22,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yJf-8M-pch">
-                                <rect key="frame" x="-0.5" y="10" width="375" height="667"/>
+                                <rect key="frame" x="0.0" y="10" width="375" height="667"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FKj-Fk-sqL">
@@ -40,7 +35,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="fill" contentVerticalAlignment="fill" text="#" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="24p-f6-2cT">
-                                <rect key="frame" x="42.5" y="86.5" width="196" height="50"/>
+                                <rect key="frame" x="42.5" y="87" width="196" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="196" id="GS8-oW-L82"/>
                                     <constraint firstAttribute="height" constant="50" id="KKs-OF-gnY"/>
@@ -53,7 +48,7 @@
                                 </connections>
                             </textField>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jOz-JS-QV8" customClass="TriangleView" customModule="ColorMixer" customModuleProvider="target">
-                                <rect key="frame" x="14" y="93" width="18.5" height="37.5"/>
+                                <rect key="frame" x="14" y="93.5" width="18.5" height="37.5"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <gestureRecognizers/>
                                 <constraints>
@@ -64,7 +59,7 @@
                                 </connections>
                             </view>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oW8-i2-EWF" customClass="TriangleView" customModule="ColorMixer" customModuleProvider="target">
-                                <rect key="frame" x="248.5" y="93" width="19" height="37.5"/>
+                                <rect key="frame" x="248.5" y="93.5" width="19" height="37.5"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <gestureRecognizers/>
                                 <connections>
@@ -72,7 +67,7 @@
                                 </connections>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lLd-Ht-LjB">
-                                <rect key="frame" x="314" y="157" width="2" height="375"/>
+                                <rect key="frame" x="314" y="157" width="2" height="374"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="2" id="pFw-Dl-boh"/>
@@ -91,7 +86,7 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="egy-Sb-LgQ" customClass="TriangleView" customModule="ColorMixer" customModuleProvider="target">
-                                <rect key="frame" x="330" y="334" width="20" height="20"/>
+                                <rect key="frame" x="330" y="333.5" width="20" height="20"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="egy-Sb-LgQ" secondAttribute="height" multiplier="1:1" id="LNS-dd-79A"/>
@@ -99,7 +94,7 @@
                                 </constraints>
                             </view>
                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="He5-0h-pwh">
-                                <rect key="frame" x="125.5" y="157" width="379" height="376"/>
+                                <rect key="frame" x="126" y="157" width="378" height="375"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="He5-0h-pwh" secondAttribute="height" multiplier="1:1" id="Gam-l4-UYm"/>
                                 </constraints>
@@ -227,43 +222,43 @@
                                 </userDefinedRuntimeAttributes>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qe9-EM-noj">
-                                <rect key="frame" x="46.5" y="157" width="188" height="187.5"/>
+                                <rect key="frame" x="47" y="157" width="187.5" height="187"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="Qe9-EM-noj" secondAttribute="height" multiplier="1:1" id="9WH-55-nmD"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qNn-1P-VSK">
-                                <rect key="frame" x="47" y="344.5" width="187.5" height="187.5"/>
+                                <rect key="frame" x="47.5" y="344" width="187" height="187"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="qNn-1P-VSK" secondAttribute="height" multiplier="1:1" id="Gaq-r2-xY5"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PXL-Ac-bYs">
-                                <rect key="frame" x="46.5" y="250.5" width="188" height="187.5"/>
+                                <rect key="frame" x="47" y="250" width="187.5" height="187"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QVi-J3-gCN">
-                                        <rect key="frame" x="48.5" y="60" width="90.5" height="34"/>
+                                        <rect key="frame" x="48" y="60" width="90.5" height="34"/>
                                         <fontDescription key="fontDescription" name="CourierNewPSMT" family="Courier New" pointSize="30"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="m5x-2L-9Ru">
-                                        <rect key="frame" x="10" y="94" width="168" height="23"/>
+                                        <rect key="frame" x="10" y="94" width="167.5" height="23"/>
                                         <fontDescription key="fontDescription" name="CourierNewPSMT" family="Courier New" pointSize="20"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <view hidden="YES" userInteractionEnabled="NO" alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0z8-ZB-yLw" customClass="TriangleView" customModule="ColorMixer" customModuleProvider="target">
-                                        <rect key="frame" x="76.5" y="33" width="34" height="17"/>
+                                        <rect key="frame" x="76" y="33" width="34" height="17"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="0z8-ZB-yLw" secondAttribute="height" multiplier="2:1" id="SrL-YM-Ygr"/>
                                         </constraints>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3wZ-SF-3br">
-                                        <rect key="frame" x="71.5" y="113" width="45.5" height="17"/>
+                                        <rect key="frame" x="71" y="113" width="45.5" height="17"/>
                                         <fontDescription key="fontDescription" name="CourierNewPSMT" family="Courier New" pointSize="15"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -433,21 +428,6 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="iS2-JV-Sm4">
-            <objects>
-                <viewController id="24q-t2-8N0" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="Enk-uv-lzv">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <viewLayoutGuide key="safeArea" id="ado-zs-9zo"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="hj1-DZ-QA0" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="938" y="378"/>
         </scene>
     </scenes>
 </document>

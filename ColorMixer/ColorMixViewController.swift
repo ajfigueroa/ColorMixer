@@ -7,10 +7,6 @@
 
 import UIKit
 
-let kColorBottomRotationKey = "kColorBottomRotationKey"
-let kColorTopRotationKey = "kColorTopRotationKey"
-let kColorRotationDuration: CFTimeInterval = 0.35
-
 struct ColorInfo {
     var color: UIColor
     var name: String?
@@ -307,86 +303,12 @@ class ColorMixViewController: UIViewController {
 
         if featureSwitch.isOn && animate {
 
-            if fakeBottomColorView.layer.animation(forKey: kColorBottomRotationKey) == nil &&
-                fakeTopColorView.layer.animation(forKey: kColorTopRotationKey) == nil {
-
-                let isAnimatingMainColor = originalMainColor != nil
-                let isAnimatingSecondaryColor = originalSecondaryColor != nil
-
-                if isAnimatingMainColor || isAnimatingSecondaryColor {
-                    fakeTopColorView.isHidden = false
-                    fakeBottomColorView.isHidden = false
-
-                    if isAnimatingSecondaryColor {
-                        fakeTopColorView.backgroundColor = secondaryColor
-                        fakeBottomColorView.backgroundColor = originalSecondaryColor
-                        secondaryColorView.isHidden = true
-                    }
-                    if isAnimatingMainColor {
-                        fakeTopColorView.backgroundColor = originalMainColor
-                        fakeBottomColorView.backgroundColor = mainColor
-                        mainColorView.isHidden = true
-                    }
-
-                    CATransaction.begin()
-
-                    let rotation1 = CABasicAnimation(keyPath: "transform.rotation.z")
-                    rotation1.duration = kColorRotationDuration
-                    rotation1.fromValue = 0.0
-                    rotation1.toValue = Double.pi
-
-                    let opacity1 = CABasicAnimation(keyPath: "opacity")
-                    opacity1.duration = kColorRotationDuration
-                    if isAnimatingSecondaryColor {
-                        opacity1.fromValue = secondaryColorView.alpha
-                        opacity1.toValue = 0.0
-                    }
-                    if isAnimatingMainColor {
-                        opacity1.fromValue = 0.0
-                        opacity1.toValue = mainColorView.alpha
-                    }
-
-                    let animations1 = CAAnimationGroup()
-                    animations1.animations = [rotation1, opacity1]
-                    animations1.isRemovedOnCompletion = true
-                    animations1.duration = kColorRotationDuration
-
-                    let rotation2 = CABasicAnimation(keyPath: "transform.rotation.z")
-                    rotation2.duration = kColorRotationDuration
-                    rotation2.fromValue = 0.0
-                    rotation2.toValue = Double.pi
-
-                    let opacity2 = CABasicAnimation(keyPath: "opacity")
-                    opacity2.duration = kColorRotationDuration
-                    if isAnimatingSecondaryColor {
-                        opacity2.fromValue = 0.0
-                        opacity2.toValue = secondaryColorView.alpha
-                    }
-                    if isAnimatingMainColor {
-                        opacity2.fromValue = mainColorView.alpha
-                        opacity2.toValue = 0.0
-                    }
-
-                    let animations2 = CAAnimationGroup()
-                    animations2.animations = [rotation2, opacity2]
-                    animations2.isRemovedOnCompletion = true
-                    animations2.duration = kColorRotationDuration
-
-                    CATransaction.setCompletionBlock({
-                        self.fakeTopColorView.isHidden = true
-                        self.fakeBottomColorView.isHidden = true
-                        self.mainColorView.isHidden = false
-                        self.secondaryColorView.isHidden = false
-
-                        self.originalMainColor = nil
-                        self.originalSecondaryColor = nil
-                    })
-
-                    fakeBottomColorView.layer.add(animations1, forKey: kColorBottomRotationKey)
-                    fakeTopColorView.layer.add(animations2, forKey: kColorTopRotationKey)
-
-                    CATransaction.commit()
-                }
+            CAAnimation.rotate(mainColorView: mainColorView, secondaryColorView: secondaryColorView,
+                               fakeTopColorView: fakeTopColorView, fakeBottomColorView: fakeBottomColorView,
+                               originalMainColor: originalMainColor, originalSecondaryColor: originalSecondaryColor,
+                               mainColor: mainColor, secondaryColor: secondaryColor) {
+                                self.originalMainColor = nil
+                                self.originalSecondaryColor = nil
             }
         }
 
@@ -521,8 +443,8 @@ extension ColorMixViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: false)
         collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
-//        updateSecondaryColor(to: indexPath.item, should: true)
-//        collectionView.reloadData()
+        //        updateSecondaryColor(to: indexPath.item, should: true)
+        //        collectionView.reloadData()
     }
 }
 
@@ -538,7 +460,7 @@ extension ColorMixViewController: UICollectionViewDelegateFlowLayout {
 }
 
 extension ColorMixViewController: UIScrollViewDelegate {
-    
+
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let centerPoint = CGPoint(x: secondaryColorCarousel.bounds.midX, y: secondaryColorCarousel.bounds.midY)
         guard let newColorIndexPath = secondaryColorCarousel.indexPathForItem(at: centerPoint) else {
@@ -579,10 +501,10 @@ class ColorMixCollectionViewCell: UICollectionViewCell {
     @IBOutlet var activeView: TriangleView! {
         didSet {
             activeView.direction = .up
-//            activeView.layer.masksToBounds = false
-//            activeView.layer.shadowOffset = CGSize(width: 0.0, height: 0.0)
-//            activeView.layer.shadowRadius = 2.0
-//            activeView.layer.shadowOpacity = 1.0
+            //            activeView.layer.masksToBounds = false
+            //            activeView.layer.shadowOffset = CGSize(width: 0.0, height: 0.0)
+            //            activeView.layer.shadowRadius = 2.0
+            //            activeView.layer.shadowOpacity = 1.0
         }
     }
 
@@ -596,15 +518,16 @@ class ColorMixCollectionViewCell: UICollectionViewCell {
         didSet {
             backgroundColor = color
             layer.shadowColor = color == .white ? color.cgColor : color.cgColor
-//            activeView.color = color.brightness() > 0.5 ? .black : .white
-//            activeView.layer.shadowColor = activeView.color?.cgColor
+            //            activeView.color = color.brightness() > 0.5 ? .black : .white
+            //            activeView.layer.shadowColor = activeView.color?.cgColor
         }
     }
 
     fileprivate var active: Bool = false {
         didSet {
-//            activeView.isHidden = !active
-//            layer.borderWidth = active ? 3.0 : 0.0
+            //            activeView.isHidden = !active
+            //            layer.borderWidth = active ? 3.0 : 0.0
         }
     }
 }
+
