@@ -22,4 +22,3 @@ extension UISlider {
         setMaximumTrackImage(trackImage, for: .normal)
     }
 }
-

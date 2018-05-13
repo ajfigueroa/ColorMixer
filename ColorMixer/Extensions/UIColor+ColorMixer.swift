@@ -83,4 +83,3 @@ extension UIColor {
         return ((red * 299) + (green * 587) + (blue * 114)) / 1000
     }
 }
-

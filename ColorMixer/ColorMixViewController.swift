@@ -7,46 +7,10 @@
 
 import UIKit
 
-struct ColorInfo {
-    var color: UIColor
-    var name: String?
-    var altNames: [String]?
-
-    init(color color1: UIColor, name name1: String? = nil, altNames altNames1: [String]? = nil) {
-        color = color1
-        name = name1
-        altNames = altNames1
-    }
-
-    func closestColor(of colorInfos: [ColorInfo]) -> Int {
-        var matchingColorByName = [ColorInfo]()
-        for colorInfo in colorInfos {
-            var findNames = [String]()
-            if let colorInfoName = colorInfo.name {
-                findNames.append(colorInfoName)
-            }
-            if let colorInfoAltNames = colorInfo.altNames {
-                findNames.append(contentsOf: colorInfoAltNames)
-            }
-            if let name = name {
-                if name.containsColor(names: findNames) {
-                    matchingColorByName.append(colorInfo)
-                }
-            }
-        }
-
-        if matchingColorByName.count > 0 {
-            let bestColor = matchingColorByName[color.closestColor(of: matchingColorByName)]
-            return bestColor.color.closestColor(of: colorInfos)
-        }
-
-        return color.closestColor(of: colorInfos)
-    }
-}
-
 class ColorMixViewController: UIViewController {
 
     static var secondaryColors: [ColorInfo] = {
+
         return ColorLibrary.colors.sorted(by: { (colorA, colorB) -> Bool in
             let segmentColors = ColorLibrary.segments
             let segmentColorIndexA = colorA.closestColor(of: segmentColors)
@@ -174,13 +138,8 @@ class ColorMixViewController: UIViewController {
     fileprivate var originalMainColor: UIColor?
     fileprivate var originalSecondaryColor: UIColor?
 
-    fileprivate let fakeBottomColorView = UIView()
-    fileprivate let fakeTopColorView = UIView()
-
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.insertSubview(fakeBottomColorView, belowSubview: mainColorView)
-        view.insertSubview(fakeTopColorView, belowSubview: mainColorView)
 
         updateMainColor()
         updateSecondaryColor()
@@ -193,16 +152,6 @@ class ColorMixViewController: UIViewController {
         mainColorView.round(corners: [.topLeft, .topRight], with: radius)
         secondaryColorView.round(corners: [.bottomLeft, .bottomRight], with: radius)
         mixedColorView.round(with: radius)
-
-        fakeBottomColorView.frame = secondaryColorView.frame
-        fakeBottomColorView.layer.anchorPoint = CGPoint(x: (mixedColorView.center.x - fakeBottomColorView.frame.minX) / fakeBottomColorView.frame.width, y: (mixedColorView.center.y - fakeBottomColorView.frame.minY) / fakeBottomColorView.frame.height)
-        fakeBottomColorView.layer.position = mixedColorView.center
-        fakeBottomColorView.round(corners: [.bottomLeft, .bottomRight], with: radius)
-
-        fakeTopColorView.frame = mainColorView.frame
-        fakeTopColorView.layer.anchorPoint = CGPoint(x: (mixedColorView.center.x - fakeTopColorView.frame.minX) / fakeTopColorView.frame.width, y: (mixedColorView.center.y - fakeTopColorView.frame.minY) / fakeTopColorView.frame.height)
-        fakeTopColorView.layer.position = mixedColorView.center
-        fakeTopColorView.round(corners: [.topLeft, .topRight], with: radius)
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -303,13 +252,14 @@ class ColorMixViewController: UIViewController {
 
         if featureSwitch.isOn && animate {
 
-            CAAnimation.rotate(mainColorView: mainColorView, secondaryColorView: secondaryColorView,
-                               fakeTopColorView: fakeTopColorView, fakeBottomColorView: fakeBottomColorView,
-                               originalMainColor: originalMainColor, originalSecondaryColor: originalSecondaryColor,
-                               mainColor: mainColor, secondaryColor: secondaryColor) {
+            let animateColor = CAAnimation.rotate(topColorView: mainColorView, bottomColorView: secondaryColorView,
+                               fromTopColor: originalMainColor, fromBottomColor: originalSecondaryColor,
+                               toTopColor: mainColor, toBottomColor: secondaryColor) {
                                 self.originalMainColor = nil
                                 self.originalSecondaryColor = nil
             }
+
+            assert(animateColor)
         }
 
         gradientLayer.colors = [mainColor.cgColor, secondaryColor.cgColor]
@@ -385,6 +335,7 @@ class ColorMixViewController: UIViewController {
 }
 
 extension ColorMixViewController: UITextFieldDelegate {
+
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         let currentString = ((textField.text ?? "") as NSString)
         var newString = currentString.replacingCharacters(in: range, with: string)
@@ -443,8 +394,6 @@ extension ColorMixViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.deselectItem(at: indexPath, animated: false)
         collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
-        //        updateSecondaryColor(to: indexPath.item, should: true)
-        //        collectionView.reloadData()
     }
 }
 
@@ -501,33 +450,21 @@ class ColorMixCollectionViewCell: UICollectionViewCell {
     @IBOutlet var activeView: TriangleView! {
         didSet {
             activeView.direction = .up
-            //            activeView.layer.masksToBounds = false
-            //            activeView.layer.shadowOffset = CGSize(width: 0.0, height: 0.0)
-            //            activeView.layer.shadowRadius = 2.0
-            //            activeView.layer.shadowOpacity = 1.0
         }
-    }
-
-    override func awakeFromNib() {
-        super.awakeFromNib()
-
-        layer.masksToBounds = false
     }
 
     fileprivate var color: UIColor = .clear {
         didSet {
             backgroundColor = color
             layer.shadowColor = color == .white ? color.cgColor : color.cgColor
-            //            activeView.color = color.brightness() > 0.5 ? .black : .white
-            //            activeView.layer.shadowColor = activeView.color?.cgColor
         }
     }
 
-    fileprivate var active: Bool = false {
-        didSet {
-            //            activeView.isHidden = !active
-            //            layer.borderWidth = active ? 3.0 : 0.0
-        }
+    fileprivate var active: Bool = false
+
+    override func awakeFromNib() {
+        super.awakeFromNib()
+
+        layer.masksToBounds = false
     }
 }
-

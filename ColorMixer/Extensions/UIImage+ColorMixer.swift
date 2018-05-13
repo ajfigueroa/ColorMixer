@@ -20,4 +20,3 @@ extension UIImage {
         return outputImage
     }
 }
-

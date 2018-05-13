@@ -19,8 +19,9 @@
 		514BA47A20A7D317008AE647 /* UIView+ColorMixer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514BA47920A7D317008AE647 /* UIView+ColorMixer.swift */; };
 		514BA47C20A7D35C008AE647 /* UISlider+ColorMixer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514BA47B20A7D35C008AE647 /* UISlider+ColorMixer.swift */; };
 		514BA47E20A7D382008AE647 /* UIImage+ColorMixer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514BA47D20A7D382008AE647 /* UIImage+ColorMixer.swift */; };
+		514BA48120A7DACD008AE647 /* ColorInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514BA48020A7DACD008AE647 /* ColorInfo.swift */; };
+		514BA48320A7DEAE008AE647 /* ColorLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514BA48220A7DEAD008AE647 /* ColorLibrary.swift */; };
 		51732F7D208BA23C00FD0F3E /* ColorSectionBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51732F7C208BA23C00FD0F3E /* ColorSectionBar.swift */; };
-		5176C4522083F79100ACC735 /* ColorLibrary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5176C4512083F79100ACC735 /* ColorLibrary.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,8 +39,9 @@
 		514BA47920A7D317008AE647 /* UIView+ColorMixer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+ColorMixer.swift"; sourceTree = "<group>"; };
 		514BA47B20A7D35C008AE647 /* UISlider+ColorMixer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UISlider+ColorMixer.swift"; sourceTree = "<group>"; };
 		514BA47D20A7D382008AE647 /* UIImage+ColorMixer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+ColorMixer.swift"; sourceTree = "<group>"; };
+		514BA48020A7DACD008AE647 /* ColorInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorInfo.swift; sourceTree = "<group>"; };
+		514BA48220A7DEAD008AE647 /* ColorLibrary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorLibrary.swift; sourceTree = "<group>"; };
 		51732F7C208BA23C00FD0F3E /* ColorSectionBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSectionBar.swift; sourceTree = "<group>"; };
-		5176C4512083F79100ACC735 /* ColorLibrary.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ColorLibrary.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,16 +74,16 @@
 		5128F28820142E62004C0964 /* ColorMixer */ = {
 			isa = PBXGroup;
 			children = (
-				514BA47220A7D1EB008AE647 /* Extensions */,
-				5128F28920142E62004C0964 /* AppDelegate.swift */,
-				5128F28B20142E62004C0964 /* ColorMixViewController.swift */,
-				5128F29B20153160004C0964 /* ColorMixerUtilities.swift */,
-				5176C4512083F79100ACC735 /* ColorLibrary.swift */,
-				5128F28D20142E62004C0964 /* Main.storyboard */,
-				5128F29020142E62004C0964 /* Assets.xcassets */,
-				5128F29220142E62004C0964 /* LaunchScreen.storyboard */,
 				5128F29520142E62004C0964 /* Info.plist */,
+				5128F28920142E62004C0964 /* AppDelegate.swift */,
+				5128F29B20153160004C0964 /* ColorMixerUtilities.swift */,
+				5128F28B20142E62004C0964 /* ColorMixViewController.swift */,
 				51732F7C208BA23C00FD0F3E /* ColorSectionBar.swift */,
+				5128F29020142E62004C0964 /* Assets.xcassets */,
+				514BA47220A7D1EB008AE647 /* Extensions */,
+				5128F29220142E62004C0964 /* LaunchScreen.storyboard */,
+				5128F28D20142E62004C0964 /* Main.storyboard */,
+				514BA47F20A7DABA008AE647 /* Models */,
 			);
 			path = ColorMixer;
 			sourceTree = "<group>";
@@ -90,13 +92,22 @@
 			isa = PBXGroup;
 			children = (
 				514BA47320A7D1EB008AE647 /* CAAnimation+ColorMixer.swift */,
-				514BA47520A7D202008AE647 /* UIColor+ColorMixer.swift */,
 				514BA47720A7D243008AE647 /* String+ColorMixer.swift */,
-				514BA47920A7D317008AE647 /* UIView+ColorMixer.swift */,
-				514BA47B20A7D35C008AE647 /* UISlider+ColorMixer.swift */,
+				514BA47520A7D202008AE647 /* UIColor+ColorMixer.swift */,
 				514BA47D20A7D382008AE647 /* UIImage+ColorMixer.swift */,
+				514BA47B20A7D35C008AE647 /* UISlider+ColorMixer.swift */,
+				514BA47920A7D317008AE647 /* UIView+ColorMixer.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		514BA47F20A7DABA008AE647 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				514BA48020A7DACD008AE647 /* ColorInfo.swift */,
+				514BA48220A7DEAD008AE647 /* ColorLibrary.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -171,14 +182,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				514BA47820A7D243008AE647 /* String+ColorMixer.swift in Sources */,
+				514BA48320A7DEAE008AE647 /* ColorLibrary.swift in Sources */,
 				5128F28C20142E62004C0964 /* ColorMixViewController.swift in Sources */,
 				514BA47E20A7D382008AE647 /* UIImage+ColorMixer.swift in Sources */,
 				51732F7D208BA23C00FD0F3E /* ColorSectionBar.swift in Sources */,
 				514BA47A20A7D317008AE647 /* UIView+ColorMixer.swift in Sources */,
-				5176C4522083F79100ACC735 /* ColorLibrary.swift in Sources */,
 				514BA47420A7D1EB008AE647 /* CAAnimation+ColorMixer.swift in Sources */,
 				5128F28A20142E62004C0964 /* AppDelegate.swift in Sources */,
 				5128F29C20153160004C0964 /* ColorMixerUtilities.swift in Sources */,
+				514BA48120A7DACD008AE647 /* ColorInfo.swift in Sources */,
 				514BA47C20A7D35C008AE647 /* UISlider+ColorMixer.swift in Sources */,
 				514BA47620A7D202008AE647 /* UIColor+ColorMixer.swift in Sources */,
 			);

@@ -13,30 +13,55 @@ let kColorRotationDuration: CFTimeInterval = 0.35
 
 extension CAAnimation {
 
-    static func rotate(mainColorView: UIView, secondaryColorView: UIView,
-                       fakeTopColorView: UIView, fakeBottomColorView: UIView,
-                       originalMainColor: UIColor?, originalSecondaryColor: UIColor?,
-                       mainColor: UIColor, secondaryColor: UIColor,
-                       completion:(() -> Void)?) {
+    private static let fakeBottomColorView = UIView()
+    private static let fakeTopColorView = UIView()
+
+    static func rotate(topColorView: UIView, bottomColorView: UIView,
+                       fromTopColor: UIColor?, fromBottomColor: UIColor?,
+                       toTopColor: UIColor, toBottomColor: UIColor,
+                       completion:(() -> Void)?) -> Bool {
+
+        if fakeTopColorView.superview == nil || fakeBottomColorView.superview == nil {
+            guard let superview = topColorView.superview else {
+                return false
+            }
+            superview.insertSubview(fakeBottomColorView, belowSubview: topColorView)
+            superview.insertSubview(fakeTopColorView, belowSubview: topColorView)
+        }
+
+        let anchorPoint = CGPoint(x: topColorView.center.x, y: topColorView.frame.maxY)
+
+        let radius: CGFloat = floor(topColorView.bounds.width / 2.0)
+
+        fakeBottomColorView.frame = bottomColorView.frame
+        fakeBottomColorView.layer.anchorPoint = CGPoint(x: (anchorPoint.x - fakeBottomColorView.frame.minX) / fakeBottomColorView.frame.width, y: (anchorPoint.y - fakeBottomColorView.frame.minY) / fakeBottomColorView.frame.height)
+        fakeBottomColorView.layer.position = anchorPoint
+        fakeBottomColorView.round(corners: [.bottomLeft, .bottomRight], with: radius)
+
+        fakeTopColorView.frame = topColorView.frame
+        fakeTopColorView.layer.anchorPoint = CGPoint(x: (anchorPoint.x - fakeTopColorView.frame.minX) / fakeTopColorView.frame.width, y: (anchorPoint.y - fakeTopColorView.frame.minY) / fakeTopColorView.frame.height)
+        fakeTopColorView.layer.position = anchorPoint
+        fakeTopColorView.round(corners: [.topLeft, .topRight], with: radius)
+
         if fakeBottomColorView.layer.animation(forKey: kColorBottomRotationKey) == nil &&
             fakeTopColorView.layer.animation(forKey: kColorTopRotationKey) == nil {
 
-            let isAnimatingMainColor = originalMainColor != nil
-            let isAnimatingSecondaryColor = originalSecondaryColor != nil
+            let isAnimatingMainColor = fromTopColor != nil
+            let isAnimatingSecondaryColor = fromBottomColor != nil
 
             if isAnimatingMainColor || isAnimatingSecondaryColor {
                 fakeTopColorView.isHidden = false
                 fakeBottomColorView.isHidden = false
 
                 if isAnimatingSecondaryColor {
-                    fakeTopColorView.backgroundColor = secondaryColor
-                    fakeBottomColorView.backgroundColor = originalSecondaryColor
-                    secondaryColorView.isHidden = true
+                    fakeTopColorView.backgroundColor = toBottomColor
+                    fakeBottomColorView.backgroundColor = fromBottomColor
+                    bottomColorView.isHidden = true
                 }
                 if isAnimatingMainColor {
-                    fakeTopColorView.backgroundColor = originalMainColor
-                    fakeBottomColorView.backgroundColor = mainColor
-                    mainColorView.isHidden = true
+                    fakeTopColorView.backgroundColor = fromTopColor
+                    fakeBottomColorView.backgroundColor = toTopColor
+                    topColorView.isHidden = true
                 }
 
                 CATransaction.begin()
@@ -49,12 +74,12 @@ extension CAAnimation {
                 let opacity1 = CABasicAnimation(keyPath: "opacity")
                 opacity1.duration = kColorRotationDuration
                 if isAnimatingSecondaryColor {
-                    opacity1.fromValue = secondaryColorView.alpha
+                    opacity1.fromValue = bottomColorView.alpha
                     opacity1.toValue = 0.0
                 }
                 if isAnimatingMainColor {
                     opacity1.fromValue = 0.0
-                    opacity1.toValue = mainColorView.alpha
+                    opacity1.toValue = topColorView.alpha
                 }
 
                 let animations1 = CAAnimationGroup()
@@ -71,10 +96,10 @@ extension CAAnimation {
                 opacity2.duration = kColorRotationDuration
                 if isAnimatingSecondaryColor {
                     opacity2.fromValue = 0.0
-                    opacity2.toValue = secondaryColorView.alpha
+                    opacity2.toValue = bottomColorView.alpha
                 }
                 if isAnimatingMainColor {
-                    opacity2.fromValue = mainColorView.alpha
+                    opacity2.fromValue = topColorView.alpha
                     opacity2.toValue = 0.0
                 }
 
@@ -84,10 +109,10 @@ extension CAAnimation {
                 animations2.duration = kColorRotationDuration
 
                 CATransaction.setCompletionBlock({
-                    fakeTopColorView.isHidden = true
                     fakeBottomColorView.isHidden = true
-                    mainColorView.isHidden = false
-                    secondaryColorView.isHidden = false
+                    fakeTopColorView.isHidden = true
+                    topColorView.isHidden = false
+                    bottomColorView.isHidden = false
 
                     completion?()
                 })
@@ -98,6 +123,6 @@ extension CAAnimation {
                 CATransaction.commit()
             }
         }
+        return true
     }
 }
-
