@@ -8,9 +8,53 @@
 
 import UIKit
 
+enum SortColorsBy {
+    case segment
+    case brightness
+    case hue
+}
+
 class ColorLibrary {
 
-    static let colors = [
+    static func colors(sorted sortedBy: SortColorsBy, ascending: Bool = true) -> [ColorInfo] {
+        switch sortedBy {
+        case .segment:
+            return colors.sorted(by: { (colorA, colorB) -> Bool in
+                let segmentColors = ColorLibrary.segments
+                let segmentColorIndexA = colorA.closestColor(of: segmentColors)
+                let segmentColorIndexB = colorB.closestColor(of: segmentColors)
+                if segmentColorIndexA != segmentColorIndexB {
+                    return segmentColorIndexA < segmentColorIndexB
+                }
+                if segmentColorIndexA == 0 {
+                    return colorA.color.similarity(to: segmentColors[1].color) > colorB.color.similarity(to: segmentColors[1].color)
+                }
+                if segmentColorIndexA == segmentColors.count - 1 {
+                    return colorA.color.similarity(to: segmentColors[segmentColors.count - 2].color) < colorB.color.similarity(to: segmentColors[segmentColors.count - 2].color)
+                }
+                let leftSimilarityA = -colorA.color.similarity(to: segmentColors[segmentColorIndexA - 1].color)
+                let leftSimilarityB = -colorB.color.similarity(to: segmentColors[segmentColorIndexA - 1].color)
+                let rightSimilarityA = colorA.color.similarity(to: segmentColors[segmentColorIndexA + 1].color)
+                let rightSimilarityB = colorB.color.similarity(to: segmentColors[segmentColorIndexA + 1].color)
+                let similarityA = abs(leftSimilarityA) < abs(rightSimilarityA) ? leftSimilarityA : rightSimilarityA
+                let similarityB = abs(leftSimilarityB) < abs(rightSimilarityB) ? leftSimilarityB : rightSimilarityB
+                let orderedIfAscending = similarityA < similarityB
+                return ascending ? orderedIfAscending : !orderedIfAscending
+            })
+        case .brightness:
+            return colors.sorted(by: { (colorA, colorB) -> Bool in
+                let orderedIfAscending = colorA.color.brightness() > colorB.color.brightness()
+                return ascending ? orderedIfAscending : !orderedIfAscending
+            })
+        case .hue:
+            return colors.sorted(by: { (colorA, colorB) -> Bool in
+                let orderedIfAscending = colorA.color.hue > colorB.color.hue
+                return ascending ? orderedIfAscending : !orderedIfAscending
+            })
+        }
+    }
+
+    private static let colors = [
         ColorInfo(color: .black, name: "Black"),
         ColorInfo(color: .darkGray, name: "Dark Gray"),
         ColorInfo(color: .lightGray, name: "Light Gray"),
@@ -144,7 +188,7 @@ class ColorLibrary {
         ColorInfo(color: "#9ACD32".toColor()!, name: "Yellow Green"),
         ]
 
-    static let segments = [
+    private static let segments = [
         ColorInfo(color: .red, name: "Red", altNames: ["Pink"]),
         ColorInfo(color: .orange, name: "Orange", altNames: ["Coral", "Salmon"]),
         ColorInfo(color: .yellow, name: "Yellow", altNames: ["Gold", "Goldenrod"]),

@@ -12,7 +12,7 @@
 		5128F28F20142E62004C0964 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5128F28D20142E62004C0964 /* Main.storyboard */; };
 		5128F29120142E62004C0964 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5128F29020142E62004C0964 /* Assets.xcassets */; };
 		5128F29420142E62004C0964 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5128F29220142E62004C0964 /* LaunchScreen.storyboard */; };
-		5128F29C20153160004C0964 /* ColorMixerUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5128F29B20153160004C0964 /* ColorMixerUtilities.swift */; };
+		5128F29C20153160004C0964 /* TriangleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5128F29B20153160004C0964 /* TriangleView.swift */; };
 		514BA47420A7D1EB008AE647 /* CAAnimation+ColorMixer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514BA47320A7D1EB008AE647 /* CAAnimation+ColorMixer.swift */; };
 		514BA47620A7D202008AE647 /* UIColor+ColorMixer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514BA47520A7D202008AE647 /* UIColor+ColorMixer.swift */; };
 		514BA47820A7D243008AE647 /* String+ColorMixer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 514BA47720A7D243008AE647 /* String+ColorMixer.swift */; };
@@ -32,7 +32,7 @@
 		5128F29020142E62004C0964 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5128F29320142E62004C0964 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5128F29520142E62004C0964 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		5128F29B20153160004C0964 /* ColorMixerUtilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorMixerUtilities.swift; sourceTree = "<group>"; };
+		5128F29B20153160004C0964 /* TriangleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TriangleView.swift; sourceTree = "<group>"; };
 		514BA47320A7D1EB008AE647 /* CAAnimation+ColorMixer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CAAnimation+ColorMixer.swift"; sourceTree = "<group>"; };
 		514BA47520A7D202008AE647 /* UIColor+ColorMixer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+ColorMixer.swift"; sourceTree = "<group>"; };
 		514BA47720A7D243008AE647 /* String+ColorMixer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+ColorMixer.swift"; sourceTree = "<group>"; };
@@ -76,9 +76,9 @@
 			children = (
 				5128F29520142E62004C0964 /* Info.plist */,
 				5128F28920142E62004C0964 /* AppDelegate.swift */,
-				5128F29B20153160004C0964 /* ColorMixerUtilities.swift */,
 				5128F28B20142E62004C0964 /* ColorMixViewController.swift */,
 				51732F7C208BA23C00FD0F3E /* ColorSectionBar.swift */,
+				5128F29B20153160004C0964 /* TriangleView.swift */,
 				5128F29020142E62004C0964 /* Assets.xcassets */,
 				514BA47220A7D1EB008AE647 /* Extensions */,
 				5128F29220142E62004C0964 /* LaunchScreen.storyboard */,
@@ -189,7 +189,7 @@
 				514BA47A20A7D317008AE647 /* UIView+ColorMixer.swift in Sources */,
 				514BA47420A7D1EB008AE647 /* CAAnimation+ColorMixer.swift in Sources */,
 				5128F28A20142E62004C0964 /* AppDelegate.swift in Sources */,
-				5128F29C20153160004C0964 /* ColorMixerUtilities.swift in Sources */,
+				5128F29C20153160004C0964 /* TriangleView.swift in Sources */,
 				514BA48120A7DACD008AE647 /* ColorInfo.swift in Sources */,
 				514BA47C20A7D35C008AE647 /* UISlider+ColorMixer.swift in Sources */,
 				514BA47620A7D202008AE647 /* UIColor+ColorMixer.swift in Sources */,

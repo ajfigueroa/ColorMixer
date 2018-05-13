@@ -9,31 +9,7 @@ import UIKit
 
 class ColorMixViewController: UIViewController {
 
-    static var secondaryColors: [ColorInfo] = {
-
-        return ColorLibrary.colors.sorted(by: { (colorA, colorB) -> Bool in
-            let segmentColors = ColorLibrary.segments
-            let segmentColorIndexA = colorA.closestColor(of: segmentColors)
-            let segmentColorIndexB = colorB.closestColor(of: segmentColors)
-            if segmentColorIndexA != segmentColorIndexB {
-                return segmentColorIndexA < segmentColorIndexB
-            }
-            if segmentColorIndexA == 0 {
-                return colorA.color.similarity(to: segmentColors[1].color) > colorB.color.similarity(to: segmentColors[1].color)
-            }
-            if segmentColorIndexA == segmentColors.count - 1 {
-                return colorA.color.similarity(to: segmentColors[segmentColors.count - 2].color) < colorB.color.similarity(to: segmentColors[segmentColors.count - 2].color)
-            }
-            let leftSimilarityA = -colorA.color.similarity(to: segmentColors[segmentColorIndexA - 1].color)
-            let leftSimilarityB = -colorB.color.similarity(to: segmentColors[segmentColorIndexA - 1].color)
-            let rightSimilarityA = colorA.color.similarity(to: segmentColors[segmentColorIndexA + 1].color)
-            let rightSimilarityB = colorB.color.similarity(to: segmentColors[segmentColorIndexA + 1].color)
-            let similarityA = abs(leftSimilarityA) < abs(rightSimilarityA) ? leftSimilarityA : rightSimilarityA
-            let similarityB = abs(leftSimilarityB) < abs(rightSimilarityB) ? leftSimilarityB : rightSimilarityB
-            return similarityA < similarityB
-        })
-    }()
-
+    static var secondaryColors = ColorLibrary.colors(sorted: .segment)
     fileprivate static var previousColors = [UIColor]()
     fileprivate static var nextColors = [UIColor]()
 
@@ -216,9 +192,9 @@ class ColorMixViewController: UIViewController {
         mixedColor = UIColor.mixColor(color1: mainColor, with: secondaryColor, atRatio: CGFloat(ratioSlider.value))
         mixedColorLabel.text = mixedColor.toHexString()
 
-        let allColorsIndex = mixedColor.closestColor(of: ColorLibrary.colors)
-        if let closestColorName = ColorLibrary.colors[allColorsIndex].name {
-            let similarity: CGFloat = floor((1.0 - ColorLibrary.colors[allColorsIndex].color.similarity(to: mixedColor)) * 100.0)
+        let allColorsIndex = mixedColor.closestColor(of: ColorMixViewController.secondaryColors)
+        if let closestColorName = ColorMixViewController.secondaryColors[allColorsIndex].name {
+            let similarity: CGFloat = floor((1.0 - ColorMixViewController.secondaryColors[allColorsIndex].color.similarity(to: mixedColor)) * 100.0)
             if similarity < 100 {
                 mixedColorNameLabel.text = "\(closestColorName)"
                 mixedColorMatchLabel.text = "\(Int(similarity))% similar"

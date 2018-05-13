@@ -1,5 +1,5 @@
 //
-//  ColorMixerUtilities.swift
+//  TriangleView.swift
 //  ColorMixer
 //
 //  Created by Richard Fa on 2018-01-21.
