@@ -390,8 +390,6 @@
                         <outlet property="leftSideBarButton" destination="uyX-fP-1nO" id="HCo-xk-dvD"/>
                         <outlet property="leftSideBarTriangleView" destination="15g-pg-IRc" id="52g-oR-sbT"/>
                         <outlet property="leftSideBarView" destination="iiB-go-iyh" id="HYY-Dg-ntp"/>
-                        <outlet property="mainColorHexTextField" destination="24p-f6-2cT" id="ooV-tN-mUG"/>
-                        <outlet property="mainColorView" destination="Qe9-EM-noj" id="qT7-Rm-86D"/>
                         <outlet property="mixedColorButtonView" destination="0z8-ZB-yLw" id="pLE-GC-xdc"/>
                         <outlet property="mixedColorLabel" destination="QVi-J3-gCN" id="heQ-aG-Tkh"/>
                         <outlet property="mixedColorMatchLabel" destination="3wZ-SF-3br" id="rtU-Pb-Pyg"/>
@@ -409,6 +407,8 @@
                         <outlet property="secondaryColorCarouselSeparator" destination="blC-bR-THa" id="ej8-ET-eSy"/>
                         <outlet property="secondaryColorCarouselView" destination="bEU-6B-s9r" id="D6P-Oa-kgN"/>
                         <outlet property="secondaryColorView" destination="qNn-1P-VSK" id="z8j-vp-7Uk"/>
+                        <outlet property="topColorHexTextField" destination="24p-f6-2cT" id="vQB-TA-7BN"/>
+                        <outlet property="topColorView" destination="Qe9-EM-noj" id="UMV-cz-XQI"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

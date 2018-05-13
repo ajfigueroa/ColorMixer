@@ -9,10 +9,13 @@ import UIKit
 
 class ColorMixViewController: UIViewController {
 
-    static var secondaryColors = ColorLibrary.colors(sorted: .segment)
-    fileprivate static var previousColors = [UIColor]()
-    fileprivate static var nextColors = [UIColor]()
+    static var bottomCarouselColors = ColorLibrary.colors(sorted: .segment)
 
+    // top color text field: stored list of colors changed.
+    fileprivate static var previousTopColors = [UIColor]()
+    fileprivate static var nextTopColors = [UIColor]()
+
+    // uiswitch on top right. enables/disabled rotation animation
     @IBOutlet var featureSwitch: UISwitch!
 
     @IBOutlet var ratioSlider: UISlider! {
@@ -20,12 +23,14 @@ class ColorMixViewController: UIViewController {
             ratioSlider.transform = CGAffineTransform(rotationAngle: .pi / 2)
         }
     }
+
     @IBOutlet var ratioSliderPointerView: TriangleView! {
         didSet {
             ratioSliderPointerView.direction = .left
         }
     }
 
+    // background gradient
     @IBOutlet var gradientLayerView: UIView! {
         didSet {
             gradientLayerView.layer.insertSublayer(gradientLayer, at: 0)
@@ -33,6 +38,7 @@ class ColorMixViewController: UIViewController {
         }
     }
 
+    // helper gradient layer used for the background gradient
     fileprivate let gradientLayer: CAGradientLayer = {
         let _gradientLayer = CAGradientLayer()
         _gradientLayer.opacity = 0.25
@@ -42,13 +48,16 @@ class ColorMixViewController: UIViewController {
         return _gradientLayer
     }()
 
-    @IBOutlet var mainColorView: UIView!
-    @IBOutlet var mainColorHexTextField: UITextField!
-    @IBOutlet var secondaryColorView: UIView!
+    @IBOutlet var topColorHexTextField: UITextField!
+
+    @IBOutlet var topColorView: UIView!
+
     @IBOutlet var mixedColorView: UIView!
     @IBOutlet var mixedColorLabel: UILabel!
     @IBOutlet var mixedColorMatchLabel: UILabel!
     @IBOutlet var mixedColorNameLabel: UILabel!
+
+    @IBOutlet var secondaryColorView: UIView!
 
     @IBOutlet var secondaryColorCarousel: UICollectionView!
     @IBOutlet var secondaryColorCarouselView: UIView!
@@ -67,12 +76,12 @@ class ColorMixViewController: UIViewController {
     fileprivate var mainColor: UIColor = .red
 
     fileprivate var secondaryColor: UIColor {
-        return ColorMixViewController.secondaryColors[secondaryColorIndex].color
+        return ColorMixViewController.bottomCarouselColors[secondaryColorIndex].color
     }
 
-    fileprivate var secondaryColorIndex: Int = secondaryColors.count / 2 {
+    fileprivate var secondaryColorIndex: Int = bottomCarouselColors.count / 2 {
         didSet {
-            secondaryColorIndex = secondaryColorIndex % ColorMixViewController.secondaryColors.count
+            secondaryColorIndex = secondaryColorIndex % ColorMixViewController.bottomCarouselColors.count
         }
     }
 
@@ -125,7 +134,7 @@ class ColorMixViewController: UIViewController {
         super.viewDidLayoutSubviews()
 
         let radius: CGFloat = floor(mixedColorView.bounds.width / 2.0)
-        mainColorView.round(corners: [.topLeft, .topRight], with: radius)
+        topColorView.round(corners: [.topLeft, .topRight], with: radius)
         secondaryColorView.round(corners: [.bottomLeft, .bottomRight], with: radius)
         mixedColorView.round(with: radius)
     }
@@ -145,17 +154,17 @@ class ColorMixViewController: UIViewController {
         } else {
             originalMainColor = nil
         }
-        mainColorHexTextField.text = mainColor.toHexString()
-        mainColorView.backgroundColor = mainColor
+        topColorHexTextField.text = mainColor.toHexString()
+        topColorView.backgroundColor = mainColor
         updateMixedColor(should: animate)
     }
 
     fileprivate func tempUpdateSecondaryColor(to index: Int) {
         tempSecondaryColorIndex = index
-        let tempSecondaryColor = ColorMixViewController.secondaryColors[index].color
+        let tempSecondaryColor = ColorMixViewController.bottomCarouselColors[index].color
         secondaryColorCarouselView.backgroundColor = tempSecondaryColor
         secondaryColorCarouselHexLabel.text = tempSecondaryColor.toHexString()
-        secondaryColorCarouselNameLabel.text = ColorMixViewController.secondaryColors[index].name?.uppercased()
+        secondaryColorCarouselNameLabel.text = ColorMixViewController.bottomCarouselColors[index].name?.uppercased()
 
         let contrastColor: UIColor = tempSecondaryColor.brightness() > 0.5 ? .black : .white
         secondaryColorCarouselHexLabel.textColor = contrastColor
@@ -176,7 +185,7 @@ class ColorMixViewController: UIViewController {
         secondaryColorView.backgroundColor = secondaryColor
         secondaryColorCarouselView.backgroundColor = secondaryColor
         secondaryColorCarouselHexLabel.text = secondaryColor.toHexString()
-        secondaryColorCarouselNameLabel.text = ColorMixViewController.secondaryColors[secondaryColorIndex].name?.uppercased()
+        secondaryColorCarouselNameLabel.text = ColorMixViewController.bottomCarouselColors[secondaryColorIndex].name?.uppercased()
 
         let contrastColor: UIColor = secondaryColor.brightness() > 0.5 ? .black : .white
         secondaryColorCarouselHexLabel.textColor = contrastColor
@@ -192,9 +201,9 @@ class ColorMixViewController: UIViewController {
         mixedColor = UIColor.mixColor(color1: mainColor, with: secondaryColor, atRatio: CGFloat(ratioSlider.value))
         mixedColorLabel.text = mixedColor.toHexString()
 
-        let allColorsIndex = mixedColor.closestColor(of: ColorMixViewController.secondaryColors)
-        if let closestColorName = ColorMixViewController.secondaryColors[allColorsIndex].name {
-            let similarity: CGFloat = floor((1.0 - ColorMixViewController.secondaryColors[allColorsIndex].color.similarity(to: mixedColor)) * 100.0)
+        let allColorsIndex = mixedColor.closestColor(of: ColorMixViewController.bottomCarouselColors)
+        if let closestColorName = ColorMixViewController.bottomCarouselColors[allColorsIndex].name {
+            let similarity: CGFloat = floor((1.0 - ColorMixViewController.bottomCarouselColors[allColorsIndex].color.similarity(to: mixedColor)) * 100.0)
             if similarity < 100 {
                 mixedColorNameLabel.text = "\(closestColorName)"
                 mixedColorMatchLabel.text = "\(Int(similarity))% similar"
@@ -215,7 +224,7 @@ class ColorMixViewController: UIViewController {
         ratioSlider.thumbTintColor = mixedColor
         ratioSliderPointerView.color = UIColor.mixColor(color1: mainColor, with: secondaryColor, atRatio: 0.5)
 
-        mainColorView.alpha = min(CGFloat(1 - ratioSlider.value) * 2.0, 1.0)
+        topColorView.alpha = min(CGFloat(1 - ratioSlider.value) * 2.0, 1.0)
         secondaryColorView.alpha = min(CGFloat(ratioSlider.value) * 2.0, 1.0)
 
         mixedColorLabel.textColor = mixedColor.brightness() > 0.5 ? .black : .white
@@ -228,7 +237,7 @@ class ColorMixViewController: UIViewController {
 
         if featureSwitch.isOn && animate {
 
-            let animateColor = CAAnimation.rotate(topColorView: mainColorView, bottomColorView: secondaryColorView,
+            let animateColor = CAAnimation.rotate(topColorView: topColorView, bottomColorView: secondaryColorView,
                                fromTopColor: originalMainColor, fromBottomColor: originalSecondaryColor,
                                toTopColor: mainColor, toBottomColor: secondaryColor) {
                                 self.originalMainColor = nil
@@ -262,51 +271,51 @@ class ColorMixViewController: UIViewController {
     //refactor
     @IBAction func didTapPreviousButton(_ sender: UITapGestureRecognizer) {
 
-        guard let previousColor = ColorMixViewController.previousColors.last else {
+        guard let previousColor = ColorMixViewController.previousTopColors.last else {
             return
         }
 
-        ColorMixViewController.nextColors.insert(mainColor, at: 0)
-        ColorMixViewController.previousColors.removeLast()
-        previousColorButton.isHidden = ColorMixViewController.previousColors.count == 0
-        nextColorButton.isHidden = ColorMixViewController.nextColors.count == 0
+        ColorMixViewController.nextTopColors.insert(mainColor, at: 0)
+        ColorMixViewController.previousTopColors.removeLast()
+        previousColorButton.isHidden = ColorMixViewController.previousTopColors.count == 0
+        nextColorButton.isHidden = ColorMixViewController.nextTopColors.count == 0
 
-        mainColorHexTextField.text = previousColor.toHexString()
-        mainColorHexTextField.textColor = .darkText
+        topColorHexTextField.text = previousColor.toHexString()
+        topColorHexTextField.textColor = .darkText
         updateMainColor(to: previousColor, should: true)
-        mainColorHexTextField.resignFirstResponder()
+        topColorHexTextField.resignFirstResponder()
     }
 
     @IBAction func didTapNextButton(_ sender: UITapGestureRecognizer) {
 
-        guard let nextColor = ColorMixViewController.nextColors.first else {
+        guard let nextColor = ColorMixViewController.nextTopColors.first else {
             return
         }
 
-        ColorMixViewController.previousColors.append(mainColor)
-        ColorMixViewController.nextColors.removeFirst()
-        previousColorButton.isHidden = ColorMixViewController.previousColors.count == 0
-        nextColorButton.isHidden = ColorMixViewController.nextColors.count == 0
+        ColorMixViewController.previousTopColors.append(mainColor)
+        ColorMixViewController.nextTopColors.removeFirst()
+        previousColorButton.isHidden = ColorMixViewController.previousTopColors.count == 0
+        nextColorButton.isHidden = ColorMixViewController.nextTopColors.count == 0
 
-        mainColorHexTextField.text = nextColor.toHexString()
-        mainColorHexTextField.textColor = .darkText
+        topColorHexTextField.text = nextColor.toHexString()
+        topColorHexTextField.textColor = .darkText
         updateMainColor(to: nextColor, should: true)
-        mainColorHexTextField.resignFirstResponder()
+        topColorHexTextField.resignFirstResponder()
     }
 
     @IBAction func didTapMixedColorView(_ sender: Any) {
         if mainColor.toHexString() == mixedColor.toHexString() {
             return
         }
-        ColorMixViewController.previousColors.append(mainColor)
-        ColorMixViewController.nextColors.removeAll()
-        previousColorButton.isHidden = ColorMixViewController.previousColors.count == 0
-        nextColorButton.isHidden = ColorMixViewController.nextColors.count == 0
+        ColorMixViewController.previousTopColors.append(mainColor)
+        ColorMixViewController.nextTopColors.removeAll()
+        previousColorButton.isHidden = ColorMixViewController.previousTopColors.count == 0
+        nextColorButton.isHidden = ColorMixViewController.nextTopColors.count == 0
 
-        mainColorHexTextField.text = mixedColor.toHexString()
-        mainColorHexTextField.textColor = .darkText
+        topColorHexTextField.text = mixedColor.toHexString()
+        topColorHexTextField.textColor = .darkText
         updateMainColor(to: mixedColor, should: true)
-        mainColorHexTextField.resignFirstResponder()
+        topColorHexTextField.resignFirstResponder()
     }
 }
 
@@ -333,10 +342,10 @@ extension ColorMixViewController: UITextFieldDelegate {
 
         if newString.isHexString() {
             if mainColor.toHexString() != newString {
-                ColorMixViewController.previousColors.append(mainColor)
-                ColorMixViewController.nextColors.removeAll()
-                previousColorButton.isHidden = ColorMixViewController.previousColors.count == 0
-                nextColorButton.isHidden = ColorMixViewController.nextColors.count == 0
+                ColorMixViewController.previousTopColors.append(mainColor)
+                ColorMixViewController.nextTopColors.removeAll()
+                previousColorButton.isHidden = ColorMixViewController.previousTopColors.count == 0
+                nextColorButton.isHidden = ColorMixViewController.nextTopColors.count == 0
             }
 
             textField.textColor = .darkText
@@ -354,12 +363,12 @@ extension ColorMixViewController: UITextFieldDelegate {
 extension ColorMixViewController: UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return ColorMixViewController.secondaryColors.count
+        return ColorMixViewController.bottomCarouselColors.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ColorMix", for: indexPath) as! ColorMixCollectionViewCell
-        cell.color = ColorMixViewController.secondaryColors[indexPath.item].color
+        cell.color = ColorMixViewController.bottomCarouselColors[indexPath.item].color
         cell.active = indexPath.item == secondaryColorIndex
         return cell
     }
@@ -418,29 +427,5 @@ extension ColorMixViewController: UIScrollViewDelegate {
 
     func scrollViewDidEndScrollingAnimation(_ scrollView: UIScrollView) {
         scrollViewDidEndDecelerating(scrollView)
-    }
-}
-
-class ColorMixCollectionViewCell: UICollectionViewCell {
-
-    @IBOutlet var activeView: TriangleView! {
-        didSet {
-            activeView.direction = .up
-        }
-    }
-
-    fileprivate var color: UIColor = .clear {
-        didSet {
-            backgroundColor = color
-            layer.shadowColor = color == .white ? color.cgColor : color.cgColor
-        }
-    }
-
-    fileprivate var active: Bool = false
-
-    override func awakeFromNib() {
-        super.awakeFromNib()
-
-        layer.masksToBounds = false
     }
 }
