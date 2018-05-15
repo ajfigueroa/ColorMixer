@@ -24,3 +24,7 @@
 
 ### 6). Features Switch (Beta):
 #### A switch that, when turned on, enables an animation effect when a new color is selected in either color views.
+
+## Open Source & Copying
+
+#### I am showing the source code of this project to the public to demonstrate my coding abilities. You are free to look at the code and learn from it as an inspiration. However, please do not ship this app under your own account. Paid or free.
