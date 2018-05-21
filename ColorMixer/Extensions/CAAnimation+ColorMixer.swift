@@ -11,6 +11,11 @@ let kColorBottomRotationKey = "kColorBottomRotationKey"
 let kColorTopRotationKey = "kColorTopRotationKey"
 let kColorRotationDuration: CFTimeInterval = 0.35
 
+let kSpinKey = "kSpinKey"
+let kSpinDuration: CFTimeInterval = 1.4
+
+var shouldStopSpinAnimation = false
+
 extension CAAnimation {
 
     private static let fakeBottomColorView = UIView()
@@ -53,12 +58,16 @@ extension CAAnimation {
                 fakeTopColorView.isHidden = false
                 fakeBottomColorView.isHidden = false
 
-                if isAnimatingSecondaryColor {
+                if isAnimatingMainColor && isAnimatingSecondaryColor {
+                    fakeTopColorView.backgroundColor = toBottomColor
+                    fakeBottomColorView.backgroundColor = toTopColor
+                    topColorView.isHidden = true
+                    bottomColorView.isHidden = true
+                } else if isAnimatingSecondaryColor {
                     fakeTopColorView.backgroundColor = toBottomColor
                     fakeBottomColorView.backgroundColor = fromBottomColor
                     bottomColorView.isHidden = true
-                }
-                if isAnimatingMainColor {
+                } else if isAnimatingMainColor {
                     fakeTopColorView.backgroundColor = fromTopColor
                     fakeBottomColorView.backgroundColor = toTopColor
                     topColorView.isHidden = true
@@ -124,5 +133,28 @@ extension CAAnimation {
             }
         }
         return true
+    }
+
+    static func spin(view: UIView, completion:(() -> Void)?) {
+
+        CATransaction.begin()
+
+        let spinAnimation = CABasicAnimation(keyPath: "transform.rotation.z")
+        spinAnimation.duration = kSpinDuration
+        spinAnimation.fromValue = 0.0
+        spinAnimation.toValue = Double.pi * 2
+        spinAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+
+        CATransaction.setCompletionBlock({
+            if !shouldStopSpinAnimation {
+                CATransition.spin(view: view, completion: completion)
+            } else {
+                completion?()
+            }
+        })
+
+        view.layer.add(spinAnimation, forKey: kSpinKey)
+
+        CATransaction.commit()
     }
 }

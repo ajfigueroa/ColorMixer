@@ -9,7 +9,7 @@ import UIKit
 
 class ColorMixViewController: UIViewController {
 
-    static var bottomCarouselColors = ColorLibrary.colors(sorted: .segment)
+    static var bottomCarouselColors = [ColorInfo]()
 
     // top color text field: stored list of colors changed.
     fileprivate static var previousTopColors = [UIColor]()
@@ -71,6 +71,10 @@ class ColorMixViewController: UIViewController {
     }
     @IBOutlet var secondaryColorCarouselSelectorBottom: UIView!
 
+    @IBOutlet weak var colorSectionBar: ColorSectionBar!
+
+    @IBOutlet weak var landingLoadView: LandingLoadView!
+
     fileprivate var mixedColor: UIColor = .red
 
     fileprivate var mainColor: UIColor = .red
@@ -118,6 +122,8 @@ class ColorMixViewController: UIViewController {
         }
     }
 
+    @IBOutlet weak var leftSideBarLeadingConstraint: NSLayoutConstraint!
+
     fileprivate var tempSecondaryColorIndex: Int?
 
     fileprivate var originalMainColor: UIColor?
@@ -126,8 +132,20 @@ class ColorMixViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        landingLoadView.isHidden = false
+        
+        ColorMixViewController.bottomCarouselColors = ColorLibrary.colors(sorted: .segment)
+        colorSectionBar.colorInfos = ColorMixViewController.bottomCarouselColors
+
         updateMainColor()
         updateSecondaryColor()
+
+        ColorLibrary.downloadFromServer { [weak self] (success: Bool) in
+            DispatchQueue.main.async {
+                self?.reloadData()
+                self?.landingLoadView.stop()
+            }
+        }
     }
 
     override func viewDidLayoutSubviews() {
@@ -141,10 +159,32 @@ class ColorMixViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        gradientLayer.frame = gradientLayerView.frame
-        updateMixedColor()
+        landingLoadView.start {
+            DispatchQueue.main.async {
+                UIView.animate(withDuration: 0.35, animations: {
+                    self.landingLoadView.alpha = 0.0
+                }, completion: { (success: Bool) in
+                    self.landingLoadView.isHidden = true
+                })
+            }
+        }
+    }
 
+    func reloadData() {
+
+        ColorMixViewController.bottomCarouselColors = ColorLibrary.colors(sorted: .segment)
+        colorSectionBar.colorInfos = ColorMixViewController.bottomCarouselColors
+
+        secondaryColorIndex = ColorMixViewController.bottomCarouselColors.count / 2
+        secondaryColorCarousel.reloadData()
         secondaryColorCarousel.scrollToItem(at: IndexPath(item: secondaryColorIndex, section: 0), at: .centeredHorizontally, animated: false)
+
+        updateMainColor()
+        updateSecondaryColor()
+
+        gradientLayer.frame = gradientLayerView.frame
+        colorSectionBar.layoutSubviews()
+        updateMixedColor()
     }
 
     fileprivate func updateMainColor(to newColor: UIColor? = nil, should animate: Bool = false) {
@@ -159,6 +199,7 @@ class ColorMixViewController: UIViewController {
         updateMixedColor(should: animate)
     }
 
+    // updates only the bottom detail bar view.
     fileprivate func tempUpdateSecondaryColor(to index: Int) {
         tempSecondaryColorIndex = index
         let tempSecondaryColor = ColorMixViewController.bottomCarouselColors[index].color
@@ -316,6 +357,20 @@ class ColorMixViewController: UIViewController {
         topColorHexTextField.textColor = .darkText
         updateMainColor(to: mixedColor, should: true)
         topColorHexTextField.resignFirstResponder()
+    }
+
+    @IBAction func didTapLeftSideBar(_ sender: UITapGestureRecognizer) {
+        if leftSideBarLeadingConstraint.constant > 0.0 {
+            leftSideBarLeadingConstraint.constant = 0.0
+            leftSideBarTriangleView.direction = .left
+        } else {
+            leftSideBarLeadingConstraint.constant = 70.0
+            leftSideBarTriangleView.direction = .right
+        }
+        UIView.animate(withDuration: 0.35) {
+            self.view.setNeedsLayout()
+            self.view.layoutIfNeeded()
+        }
     }
 }
 

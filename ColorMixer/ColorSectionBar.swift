@@ -9,15 +9,15 @@ import UIKit
 
 class ColorSectionBar: UIView {
 
-    fileprivate var colorButtons = [UIButton]()
+    fileprivate var colors = [CGColor]()
 
-    var colors = [UIColor]() {
+    fileprivate let gradientLayer = CAGradientLayer()
+
+    var colorInfos = [ColorInfo]() {
         didSet {
-            colorButtons.removeAll()
-            for i in 0..<colors.count {
-                let button = UIButton()
-                button.backgroundColor = colors[i]
-                colorButtons.append(button)
+            colors.removeAll()
+            for i in 0..<colorInfos.count {
+                colors.append(colorInfos[i].color.cgColor)
             }
             setNeedsLayout()
         }
@@ -26,14 +26,22 @@ class ColorSectionBar: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
 
-        guard colorButtons.count > 0 else {
-            return
+        gradientLayer.colors = colors
+
+        let separation: CGFloat = 1.0 / (CGFloat(colors.count) - 1.0)
+
+        var locations = [NSNumber]()
+        for i in 0..<colors.count {
+            locations.append(NSNumber(floatLiteral: Double(CGFloat(i) * separation)))
         }
-        let sectionWidth: CGFloat = bounds.width / CGFloat(colorButtons.count)
-        for i in 0..<colorButtons.count {
-            colorButtons[i].frame = CGRect(x: (CGFloat)(i) * sectionWidth,
-                                           y: 0.0, width: sectionWidth,
-                                           height: bounds.height)
+
+        gradientLayer.locations = locations
+        gradientLayer.startPoint = CGPoint(x: 1.0, y: 0.0)
+        gradientLayer.endPoint = CGPoint(x: 1.0, y: 1.0)
+
+        if gradientLayer.superlayer == nil {
+            layer.insertSublayer(gradientLayer, at: 0)
         }
+        gradientLayer.frame = layer.bounds
     }
 }

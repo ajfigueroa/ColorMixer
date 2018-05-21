@@ -283,11 +283,11 @@
                                     <outletCollection property="gestureRecognizers" destination="Oxd-Bv-ouO" appends="YES" id="0ta-gL-0b1"/>
                                 </connections>
                             </view>
-                            <view hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SRI-he-0jv">
-                                <rect key="frame" x="-70" y="10" width="100" height="667"/>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="SRI-he-0jv">
+                                <rect key="frame" x="-70" y="20" width="100" height="647"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uyX-fP-1nO">
-                                        <rect key="frame" x="70" y="303" width="30" height="60"/>
+                                        <rect key="frame" x="70" y="293" width="30" height="60"/>
                                         <subviews>
                                             <view alpha="0.5" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="15g-pg-IRc" customClass="TriangleView" customModule="ColorMixer" customModuleProvider="target">
                                                 <rect key="frame" x="4" y="7.5" width="22.5" height="45"/>
@@ -295,6 +295,7 @@
                                             </view>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <gestureRecognizers/>
                                         <constraints>
                                             <constraint firstItem="15g-pg-IRc" firstAttribute="centerX" secondItem="uyX-fP-1nO" secondAttribute="centerX" id="7MD-RX-Qmw"/>
                                             <constraint firstItem="15g-pg-IRc" firstAttribute="height" secondItem="uyX-fP-1nO" secondAttribute="height" multiplier="0.75" id="8mC-0a-Ikd"/>
@@ -303,10 +304,25 @@
                                             <constraint firstItem="15g-pg-IRc" firstAttribute="centerY" secondItem="uyX-fP-1nO" secondAttribute="centerY" id="Ytm-6Y-ygF"/>
                                             <constraint firstItem="15g-pg-IRc" firstAttribute="width" secondItem="uyX-fP-1nO" secondAttribute="width" multiplier="0.75" id="lwg-bK-ka8"/>
                                         </constraints>
+                                        <connections>
+                                            <outletCollection property="gestureRecognizers" destination="jJo-F4-Jsn" appends="YES" id="D09-8R-Mv8"/>
+                                        </connections>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iiB-go-iyh">
-                                        <rect key="frame" x="0.0" y="0.0" width="70" height="667"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="70" height="647"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rwy-ya-9rF" customClass="ColorSectionBar" customModule="ColorMixer" customModuleProvider="target">
+                                                <rect key="frame" x="5" y="5" width="60" height="637"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </view>
+                                        </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstItem="Rwy-ya-9rF" firstAttribute="leading" secondItem="iiB-go-iyh" secondAttribute="leading" constant="5" id="SRA-tv-UrT"/>
+                                            <constraint firstAttribute="trailing" secondItem="Rwy-ya-9rF" secondAttribute="trailing" constant="5" id="Ulh-Gz-SnZ"/>
+                                            <constraint firstAttribute="bottom" secondItem="Rwy-ya-9rF" secondAttribute="bottom" constant="5" id="ujx-Sm-DVQ"/>
+                                            <constraint firstItem="Rwy-ya-9rF" firstAttribute="top" secondItem="iiB-go-iyh" secondAttribute="top" constant="5" id="wZn-ka-de2"/>
+                                        </constraints>
                                     </view>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -332,6 +348,10 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h8A-Y1-qcE" customClass="LandingLoadView" customModule="ColorMixer" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -349,21 +369,26 @@
                             <constraint firstItem="yJf-8M-pch" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="D7G-tA-wah"/>
                             <constraint firstItem="PXL-Ac-bYs" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" multiplier="0.75" id="Dke-33-vX6"/>
                             <constraint firstItem="oW8-i2-EWF" firstAttribute="height" secondItem="jOz-JS-QV8" secondAttribute="height" id="I8f-mY-89F"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="h8A-Y1-qcE" secondAttribute="trailing" id="IOb-ZE-T0g"/>
+                            <constraint firstItem="SRI-he-0jv" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="IXj-oP-wa5"/>
                             <constraint firstItem="24p-f6-2cT" firstAttribute="centerX" secondItem="PXL-Ac-bYs" secondAttribute="centerX" id="LHn-Cc-rlw"/>
                             <constraint firstItem="He5-0h-pwh" firstAttribute="bottom" secondItem="qNn-1P-VSK" secondAttribute="bottom" id="Lbl-Xs-CI3"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="top" secondItem="SRI-he-0jv" secondAttribute="top" id="N58-mL-c6x"/>
                             <constraint firstItem="wON-v5-uqq" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="N8V-gb-vvH"/>
                             <constraint firstItem="yJf-8M-pch" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="PVm-he-vWD"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="leading" secondItem="iiB-go-iyh" secondAttribute="leading" constant="70" id="RDJ-XA-QDR"/>
                             <constraint firstItem="V6M-wm-72u" firstAttribute="bottom" secondItem="FKj-Fk-sqL" secondAttribute="top" id="RDv-IQ-52R"/>
                             <constraint firstItem="Qe9-EM-noj" firstAttribute="top" secondItem="24p-f6-2cT" secondAttribute="bottom" constant="20" id="SML-TH-PQp"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="leading" secondItem="SRI-he-0jv" secondAttribute="trailing" constant="-30" id="SdG-2Q-0Pq"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="wON-v5-uqq" secondAttribute="trailing" id="Uro-BG-Ye3"/>
-                            <constraint firstItem="SRI-he-0jv" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" id="VE1-k5-g1n"/>
                             <constraint firstItem="Qe9-EM-noj" firstAttribute="bottom" secondItem="PXL-Ac-bYs" secondAttribute="centerY" id="Vg0-rn-eH3"/>
                             <constraint firstItem="He5-0h-pwh" firstAttribute="top" secondItem="Qe9-EM-noj" secondAttribute="top" id="W0z-LW-yIH"/>
                             <constraint firstItem="jOz-JS-QV8" firstAttribute="centerY" secondItem="24p-f6-2cT" secondAttribute="centerY" id="WQH-or-cvp"/>
                             <constraint firstAttribute="trailing" secondItem="He5-0h-pwh" secondAttribute="centerX" constant="60" id="Z45-bs-t1y"/>
+                            <constraint firstItem="h8A-Y1-qcE" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="abk-Nx-F0c"/>
                             <constraint firstItem="yJf-8M-pch" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="c62-cy-w2z"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="h8A-Y1-qcE" secondAttribute="bottom" id="dBk-LV-k0d"/>
                             <constraint firstItem="FKj-Fk-sqL" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="40" id="dHw-nD-OYq"/>
+                            <constraint firstItem="h8A-Y1-qcE" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="dh1-zb-UKm"/>
                             <constraint firstItem="bEU-6B-s9r" firstAttribute="trailing" secondItem="wON-v5-uqq" secondAttribute="trailing" id="f6Q-SA-uJo"/>
                             <constraint firstItem="PXL-Ac-bYs" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" multiplier="0.5" id="fCK-QA-MV9"/>
                             <constraint firstItem="egy-Sb-LgQ" firstAttribute="centerY" secondItem="He5-0h-pwh" secondAttribute="centerY" id="i23-iQ-ZBC"/>
@@ -372,7 +397,6 @@
                             <constraint firstItem="PXL-Ac-bYs" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="kDw-Df-I9K"/>
                             <constraint firstItem="oW8-i2-EWF" firstAttribute="leading" secondItem="24p-f6-2cT" secondAttribute="trailing" constant="10" id="kqF-WC-PLQ"/>
                             <constraint firstItem="lLd-Ht-LjB" firstAttribute="centerX" secondItem="He5-0h-pwh" secondAttribute="centerX" id="lwU-oh-SzL"/>
-                            <constraint firstItem="SRI-he-0jv" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="nQd-nr-5hs"/>
                             <constraint firstItem="blC-bR-THa" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="pBC-3H-YEa"/>
                             <constraint firstItem="lLd-Ht-LjB" firstAttribute="height" secondItem="He5-0h-pwh" secondAttribute="height" id="prI-gy-36z"/>
                             <constraint firstItem="Qe9-EM-noj" firstAttribute="centerX" secondItem="PXL-Ac-bYs" secondAttribute="centerX" id="pwT-Cj-kuJ"/>
@@ -385,9 +409,12 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="colorSectionBar" destination="Rwy-ya-9rF" id="rL1-0U-oWx"/>
                         <outlet property="featureSwitch" destination="FKj-Fk-sqL" id="bJo-3m-UzK"/>
                         <outlet property="gradientLayerView" destination="yJf-8M-pch" id="dxW-oD-I1d"/>
+                        <outlet property="landingLoadView" destination="h8A-Y1-qcE" id="96S-FE-E7f"/>
                         <outlet property="leftSideBarButton" destination="uyX-fP-1nO" id="HCo-xk-dvD"/>
+                        <outlet property="leftSideBarLeadingConstraint" destination="RDJ-XA-QDR" id="sQO-wB-MoZ"/>
                         <outlet property="leftSideBarTriangleView" destination="15g-pg-IRc" id="52g-oR-sbT"/>
                         <outlet property="leftSideBarView" destination="iiB-go-iyh" id="HYY-Dg-ntp"/>
                         <outlet property="mixedColorButtonView" destination="0z8-ZB-yLw" id="pLE-GC-xdc"/>
@@ -425,6 +452,11 @@
                 <tapGestureRecognizer id="Oxd-Bv-ouO">
                     <connections>
                         <action selector="didTapMixedColorView:" destination="BYZ-38-t0r" id="MIu-z7-v3o"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="jJo-F4-Jsn">
+                    <connections>
+                        <action selector="didTapLeftSideBar:" destination="BYZ-38-t0r" id="CEg-5K-2qy"/>
                     </connections>
                 </tapGestureRecognizer>
             </objects>

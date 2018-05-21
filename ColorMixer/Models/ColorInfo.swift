@@ -44,3 +44,18 @@ struct ColorInfo {
         return color.closestColor(of: colorInfos)
     }
 }
+
+extension ColorInfo {
+
+    init(json: [String : Any]) {
+        let hexValue = json["hex_value"] as? String
+        if let color1 = hexValue?.toColor() {
+            color = color1
+        } else {
+            color = .white
+        }
+
+        name = json["name"] as? String
+        altNames = json["alt_names"] as? [String]
+    }
+}
