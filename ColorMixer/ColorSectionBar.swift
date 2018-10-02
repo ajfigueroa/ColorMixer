@@ -9,9 +9,9 @@ import UIKit
 
 class ColorSectionBar: UIView {
 
-    fileprivate var colors = [CGColor]()
+    private var colors = [CGColor]()
 
-    fileprivate let gradientLayer = CAGradientLayer()
+    private let gradientLayer = CAGradientLayer()
 
     var colorInfos = [ColorInfo]() {
         didSet {

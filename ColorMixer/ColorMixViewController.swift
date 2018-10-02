@@ -12,8 +12,8 @@ class ColorMixViewController: UIViewController {
     static var bottomCarouselColors = [ColorInfo]()
 
     // top color text field: stored list of colors changed.
-    fileprivate static var previousTopColors = [UIColor]()
-    fileprivate static var nextTopColors = [UIColor]()
+    private static var previousTopColors = [UIColor]()
+    private static var nextTopColors = [UIColor]()
 
     // uiswitch on top right. enables/disabled rotation animation
     @IBOutlet var featureSwitch: UISwitch!
@@ -39,7 +39,7 @@ class ColorMixViewController: UIViewController {
     }
 
     // helper gradient layer used for the background gradient
-    fileprivate let gradientLayer: CAGradientLayer = {
+    private let gradientLayer: CAGradientLayer = {
         let _gradientLayer = CAGradientLayer()
         _gradientLayer.opacity = 0.25
         _gradientLayer.locations = [0.0 , 1.0]
@@ -75,15 +75,15 @@ class ColorMixViewController: UIViewController {
 
     @IBOutlet weak var landingLoadView: LandingLoadView!
 
-    fileprivate var mixedColor: UIColor = .red
+    private var mixedColor: UIColor = .red
 
-    fileprivate var mainColor: UIColor = .red
+    private var mainColor: UIColor = .red
 
-    fileprivate var secondaryColor: UIColor {
+    private var secondaryColor: UIColor {
         return ColorMixViewController.bottomCarouselColors[secondaryColorIndex].color
     }
 
-    fileprivate var secondaryColorIndex: Int = bottomCarouselColors.count / 2 {
+    private var secondaryColorIndex: Int = bottomCarouselColors.count / 2 {
         didSet {
             secondaryColorIndex = secondaryColorIndex % ColorMixViewController.bottomCarouselColors.count
         }
@@ -124,10 +124,10 @@ class ColorMixViewController: UIViewController {
 
     @IBOutlet weak var leftSideBarLeadingConstraint: NSLayoutConstraint!
 
-    fileprivate var tempSecondaryColorIndex: Int?
+    private var tempSecondaryColorIndex: Int?
 
-    fileprivate var originalMainColor: UIColor?
-    fileprivate var originalSecondaryColor: UIColor?
+    private var originalMainColor: UIColor?
+    private var originalSecondaryColor: UIColor?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -187,7 +187,7 @@ class ColorMixViewController: UIViewController {
         updateMixedColor()
     }
 
-    fileprivate func updateMainColor(to newColor: UIColor? = nil, should animate: Bool = false) {
+    private func updateMainColor(to newColor: UIColor? = nil, should animate: Bool = false) {
         if let newColor = newColor {
             originalMainColor = mainColor
             mainColor = newColor
@@ -200,7 +200,7 @@ class ColorMixViewController: UIViewController {
     }
 
     // updates only the bottom detail bar view.
-    fileprivate func tempUpdateSecondaryColor(to index: Int) {
+    private func tempUpdateSecondaryColor(to index: Int) {
         tempSecondaryColorIndex = index
         let tempSecondaryColor = ColorMixViewController.bottomCarouselColors[index].color
         secondaryColorCarouselView.backgroundColor = tempSecondaryColor
@@ -215,7 +215,7 @@ class ColorMixViewController: UIViewController {
         secondaryColorCarouselSelectorBottom.backgroundColor = contrastColor
     }
 
-    fileprivate func updateSecondaryColor(to index: Int? = nil, should animate: Bool = false) {
+    private func updateSecondaryColor(to index: Int? = nil, should animate: Bool = false) {
         tempSecondaryColorIndex = nil
         if let index = index {
             originalSecondaryColor = secondaryColor
@@ -238,7 +238,7 @@ class ColorMixViewController: UIViewController {
         updateMixedColor(should: animate)
     }
 
-    fileprivate func updateMixedColor(should animate: Bool = false) {
+    private func updateMixedColor(should animate: Bool = false) {
         mixedColor = UIColor.mixColor(color1: mainColor, with: secondaryColor, atRatio: CGFloat(ratioSlider.value))
         mixedColorLabel.text = mixedColor.toHexString()
 
@@ -291,7 +291,7 @@ class ColorMixViewController: UIViewController {
         gradientLayer.colors = [mainColor.cgColor, secondaryColor.cgColor]
     }
 
-    fileprivate func updateRatioSlider(to newRatio: CGFloat? = nil) {
+    private func updateRatioSlider(to newRatio: CGFloat? = nil) {
         if var newRatio = newRatio {
             let min: CGFloat = 0.05
             let max: CGFloat = 0.95

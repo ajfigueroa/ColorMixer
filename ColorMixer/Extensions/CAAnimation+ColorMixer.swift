@@ -143,7 +143,7 @@ extension CAAnimation {
         spinAnimation.duration = kSpinDuration
         spinAnimation.fromValue = 0.0
         spinAnimation.toValue = Double.pi * 2
-        spinAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+        spinAnimation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
 
         CATransaction.setCompletionBlock({
             if !shouldStopSpinAnimation {

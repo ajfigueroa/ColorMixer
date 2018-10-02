@@ -11,8 +11,8 @@ let kCoachMarkFadeDuration: CFTimeInterval = 0.35
 
 class CoachMarkView: UIVisualEffectView {
 
-    fileprivate var highlightedFeatureView: UIImageView?
-    fileprivate var arrowView: TriangleView?
+    private var highlightedFeatureView: UIImageView?
+    private var arrowView: TriangleView?
 
     func show(highlight feature: UIView) -> Bool {
         isHidden = false
@@ -40,7 +40,7 @@ class CoachMarkView: UIVisualEffectView {
         }
     }
 
-    fileprivate func highlight(feature: UIView) -> Bool {
+    private func highlight(feature: UIView) -> Bool {
         UIGraphicsBeginImageContextWithOptions(feature.bounds.size, feature.isOpaque, 0.0)
         guard let currentContext = UIGraphicsGetCurrentContext() else {
             return false
