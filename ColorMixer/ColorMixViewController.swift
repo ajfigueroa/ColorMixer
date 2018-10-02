@@ -183,7 +183,7 @@ class ColorMixViewController: UIViewController {
         updateSecondaryColor()
 
         gradientLayer.frame = gradientLayerView.frame
-        colorSectionBar.layoutSubviews()
+        colorSectionBar.layoutIfNeeded()
         updateMixedColor()
     }
 
